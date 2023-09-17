@@ -1,7 +1,6 @@
-namespace Thrima.Domain.Books;
+using Thrima.Domain.Common;
 
-using System;
-using Common;
+namespace Thrima.Domain.Books;
 
 public class Book : IEntity, IIdentifiable
 {
