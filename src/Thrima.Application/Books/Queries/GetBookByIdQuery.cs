@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Thrima.Application.Exceptions;
@@ -9,6 +10,14 @@ using Thrima.Domain.Books;
 namespace Thrima.Application.Books.Queries;
 
 public record GetBookByIdQuery(Guid Id) : IRequest<GetBookByIdQueryResponse>;
+
+public class GetBookByIdQueryValidator : AbstractValidator<GetBookByIdQuery>
+{
+    public GetBookByIdQueryValidator()
+    {
+        RuleFor(x => x.Id).NotEmpty();
+    }
+}
 
 public record GetBookByIdQueryResponse(
     string Title,
@@ -27,15 +36,22 @@ public class GetBookByIdQueryHandler
 {
     private readonly IAppDbContext _appDbContext;
     private readonly IMapper _mapper;
+    private readonly IValidator<GetBookByIdQuery> _validator;
 
-    public GetBookByIdQueryHandler(IAppDbContext appDbContext, IMapper mapper)
+    public GetBookByIdQueryHandler(
+        IAppDbContext appDbContext,
+        IMapper mapper,
+        IValidator<GetBookByIdQuery> validator)
     {
         _appDbContext = appDbContext;
         _mapper = mapper;
+        _validator = validator;
     }
 
     public async Task<GetBookByIdQueryResponse> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
     {
+        await _validator.ValidateAndThrowAsync(request, cancellationToken);
+
         var result = await _appDbContext
             .Books
             .AsNoTracking()
