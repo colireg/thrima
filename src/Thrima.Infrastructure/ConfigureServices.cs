@@ -8,7 +8,7 @@ namespace Thrima.Infrastructure;
 
 public static class ConfigureServices
 {
-    public static IServiceCollection AddInfrastructure(
+    public static void AddInfrastructure(
         this IServiceCollection services,
         IConfiguration configuration)
     {
@@ -17,7 +17,5 @@ public static class ConfigureServices
             sqlServeOptions => sqlServeOptions.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)));
 
         services.AddScoped<IAppDbContext, AppDbContext>();
-
-        return services;
     }
 }
