@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Thrima.Application.Books.Commands;
 using Thrima.Application.Books.Queries;
 using Thrima.WebApi.Common;
 
@@ -25,6 +26,13 @@ public class BookController : ApiController
     public async Task<IActionResult> GetAsync([FromQuery] GetBookByIdQuery query, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(query, cancellationToken);
+        return Ok(result);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> PostAsync(CreateBookCommand command, CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(command, cancellationToken);
         return Ok(result);
     }
 }

@@ -4,7 +4,6 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Thrima.Application.Services;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
 
 namespace Thrima.Application.Books.Queries;
 
