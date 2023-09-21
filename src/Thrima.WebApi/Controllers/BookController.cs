@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Thrima.Application;
 using Thrima.Application.Books.Commands;
 using Thrima.Application.Books.Queries;
 using Thrima.WebApi.Common;
@@ -35,4 +36,12 @@ public class BookController : ApiController
         var result = await _mediator.Send(command, cancellationToken);
         return Ok(result);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteAsync([FromQuery] DeleteBookCommand command, CancellationToken cancellationToken)
+    {
+        await _mediator.Send(command, cancellationToken);
+        return Ok();
+    }
+
 }
