@@ -6,5 +6,5 @@ public class Book : IIdentifiable
 {
     public required Guid Id { get; init; }
     public required string Title { get; set; }
-    public string? Author { get; set; }
+    public required string Author { get; set; }
 }
