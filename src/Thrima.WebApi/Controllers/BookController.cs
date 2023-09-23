@@ -37,11 +37,17 @@ public class BookController : ApiController
         return Ok(result);
     }
 
+    [HttpPut]
+    public async Task<IActionResult> PutAsync(UpdateBookCommand command, CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(command, cancellationToken);
+        return Ok(result);
+    }
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAsync([FromQuery] DeleteBookCommand command, CancellationToken cancellationToken)
     {
         await _mediator.Send(command, cancellationToken);
         return Ok();
     }
-
 }
