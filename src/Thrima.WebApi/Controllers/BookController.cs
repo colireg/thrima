@@ -16,17 +16,16 @@ public class BookController : ApiController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAsync(GetAllBooksQuery query, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetAsync([FromQuery] GetAllBooksQuery query, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(query, cancellationToken);
         return Ok(result);
     }
 
-    // [HttpGet("{id:Guid}")]
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetAsync([FromQuery] GetBookByIdQuery query, CancellationToken cancellationToken)
+    [HttpGet("{id:Guid}")]
+    public async Task<IActionResult> GetAsync(Guid id, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(query, cancellationToken);
+        var result = await _mediator.Send(new GetBookByIdQuery(id), cancellationToken);
         return Ok(result);
     }
 
@@ -44,10 +43,10 @@ public class BookController : ApiController
         return Ok(result);
     }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAsync([FromQuery] DeleteBookCommand command, CancellationToken cancellationToken)
+    [HttpDelete("{id:Guid}")]
+    public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
-        await _mediator.Send(command, cancellationToken);
+        await _mediator.Send(new DeleteBookCommand(id), cancellationToken);
         return Ok();
     }
 }

@@ -15,7 +15,7 @@ public record UpdateBookCommand(
 
 public class UpdateBookCommandValidator : AbstractValidator<UpdateBookCommand>
 {
-    UpdateBookCommandValidator()
+    public UpdateBookCommandValidator()
     {
         RuleFor(x => x.Id).NotEmpty();
 
@@ -27,7 +27,7 @@ public class UpdateBookCommandValidator : AbstractValidator<UpdateBookCommand>
 
 public record UpdateBookResponse(
     Guid Id,
-    sbyte Title,
+    string Title,
     string Author);
 
 public class BookToUpdateBookResponseMapper : Profile

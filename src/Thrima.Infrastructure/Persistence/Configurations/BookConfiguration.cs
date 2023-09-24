@@ -9,8 +9,12 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
     public void Configure(EntityTypeBuilder<Book> builder)
     {
         builder
+            .HasKey(x => x.Id);
+
+        builder
             .Property(x => x.Id)
-            .UseIdentityColumn();
+            .IsRequired()
+            .ValueGeneratedOnAdd();
         
         builder
             .Property(x => x.Title)

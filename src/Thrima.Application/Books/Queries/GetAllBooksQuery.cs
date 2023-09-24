@@ -34,7 +34,7 @@ public class BookToGetAllBooksQueryListItemMapper : Profile
 {
     public BookToGetAllBooksQueryListItemMapper()
     {
-        CreateMap<Book, GetAllBooksQuery>();
+        CreateMap<Book, GetAllBooksQueryListItem>();
     }
 }
 

@@ -12,15 +12,15 @@ public record CreateBookCommand(
 
 public class CreateBookCommandToBookMapper : Profile
 {
-    CreateBookCommandToBookMapper()
+    public CreateBookCommandToBookMapper()
     {
-        CreateMap<CreateBookCommandToBookMapper, Book>();
+        CreateMap<CreateBookCommand, Book>();
     }
 }
 
 public class CreateBookCommandValidator : AbstractValidator<CreateBookCommand>
 {
-    CreateBookCommandValidator()
+    public CreateBookCommandValidator()
     {
         RuleFor(x => x.Title)
             .NotEmpty()
@@ -36,7 +36,7 @@ public record CreateBookCommandResponse(Guid Id);
 
 public class BookToCreateBookCommandResponseMapper : Profile
 {
-    BookToCreateBookCommandResponseMapper()
+    public BookToCreateBookCommandResponseMapper()
     {
         CreateMap<Book, CreateBookCommandResponse>();
     }
@@ -48,7 +48,7 @@ public class CreateBookCommandHandler :
     private readonly IAppDbContext _appDbContext;
     private readonly IValidator<CreateBookCommand> _validator;
     private readonly IMapper _mapper;
-    CreateBookCommandHandler(
+    public CreateBookCommandHandler(
             IAppDbContext appDbContext,
             IValidator<CreateBookCommand> validator,
             IMapper mapper)

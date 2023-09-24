@@ -10,7 +10,7 @@ public record DeleteBookCommand(Guid Id) : IRequest;
 
 public class DeleteBookCommandValidator : AbstractValidator<DeleteBookCommand>
 {
-    DeleteBookCommandValidator()
+    public DeleteBookCommandValidator()
     {
         RuleFor(x => x.Id).NotEmpty();
     }

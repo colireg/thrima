@@ -13,8 +13,10 @@ public static class ConfigureServices
         IConfiguration configuration)
     {
         services.AddDbContext<AppDbContext>(
-            dbContextOptions => dbContextOptions.UseSqlServer(configuration.GetConnectionString("SqlServer"),
-            sqlServeOptions => sqlServeOptions.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)));
+            // dbContextOptions => dbContextOptions.UseSqlServer(configuration.GetConnectionString("SqlServer"),
+            dbContextOptions => dbContextOptions.UseInMemoryDatabase(configuration.GetConnectionString("Memory") ?? "thrima")
+            // sqlServeOptions => sqlServeOptions.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName))
+            );
 
         services.AddScoped<IAppDbContext, AppDbContext>();
     }
