@@ -1,0 +1,40 @@
+version: '3.7'
+
+networks:
+  thrima-network:
+    name: thrima-network
+
+# volumes:
+#   thrimadb-system:
+#   thrimadb-data:
+#   thrimadb-log:
+#   thrimadb-backup:
+
+services:
+  thrima:
+    container_name: thrima
+    build:
+      context: ./src
+    image: thrima:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      - thrimadb
+    networks:
+      - thrima-network
+
+  thrimadb:
+    container_name: thrimadb
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1433:1433"
+    env_file:
+      - sqlserver-password.env
+      - sqlserver.env
+    # volumes: 
+      # - thrimadb-system:/var/opt/mssql/
+      # - thrimadb-data:/var/opt/sqlserver/data
+      # - thrimadb-log:/var/opt/sqlserver/log
+      # - thrimadb-backup:/var/opt/sqlserver/backup
+    networks:
+      - thrima-network
