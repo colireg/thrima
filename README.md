@@ -1,2 +1,2 @@
 # Thrima
-ASP.NET Web API Template
+A library management API
