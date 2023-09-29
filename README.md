@@ -1,2 +1,2 @@
 # Thrima
-A library management API
+A sample ASP.NET API project
